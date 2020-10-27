@@ -43,6 +43,42 @@ enum layers {
 // CUSTOM KEYS
 enum {
   INSERT_GAMEPAD,
+  OPEN_PAREN_ARROW,
+  CLOSE_PAREN_ARROW,
+};
+
+void open_paren_arrow_finised(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code16(S_LPR);
+    return;
+  } 
+};
+
+void open_paren_arrow_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code16(S_LPR);
+    return;
+  } else {
+    SEND_STRING("->");
+    return;
+  }
+};
+
+void close_paren_arrow_finised(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code16(S_RPR);
+    return;
+  } 
+};
+
+void close_paren_arrow_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code16(S_RPR);
+    return;
+  } else {
+    SEND_STRING("=>");
+    return;
+  }
 };
 
 void insert_gamepad_finised(qk_tap_dance_state_t *state, void *user_data) {
@@ -66,6 +102,8 @@ void insert_gamepad_reset(qk_tap_dance_state_t *state, void *user_data) {
 // TAP DANCE
 qk_tap_dance_action_t tap_dance_actions[] = {
    [INSERT_GAMEPAD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, insert_gamepad_finised, insert_gamepad_reset),
+   [OPEN_PAREN_ARROW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, open_paren_arrow_finised, open_paren_arrow_reset),
+   [CLOSE_PAREN_ARROW] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, close_paren_arrow_finised, close_paren_arrow_reset),
 };
 
 // ALIASES SPECIFIC TO THE SLUGBYTE KEYMAP
@@ -93,6 +131,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define G_SFT LCTL_T(A_ENT)
 #define G_NUM MO(_GAMENUM)
 
+// -- TAP DANCE
+#define Y_LPR TD(OPEN_PAREN_ARROW)
+#define Y_RPR TD(CLOSE_PAREN_ARROW)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORKMXN] = LAYOUT(
       A_TAB, __Q__, __D__, __R__, __W__, __B__,                                      __J__, __F__, __U__, __P__, S_SEM, A_BSP,
@@ -108,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SYMBOL] = LAYOUT(
       S_BSL, S_MUL, S_ADD, S_SUB, S_UND, A_ESC,                                       S_AT_, S_SQT, S_DQT, S_BQT, S_XOR, _____,
-      S_FSL, S_LAB, S_RAB, S_LPR, S_RPR, S_EQL,                                       S_TIL, S_SEM, S_AND, S_OR_, S_NOT, S_MOD,
+      S_FSL, S_LAB, S_RAB, Y_LPR, Y_RPR, S_EQL,                                       S_TIL, S_SEM, S_AND, S_OR_, S_NOT, S_MOD,
       _____, S_LSB, S_RSB, S_LCB, S_RCB, S_MON,    _____, _____,     _____, _____,    S_HSH, S_COL, S_COM, S_DOT, S_HUH, _____,
                            _____, _____, _____,    _____, _____,     _____, _____,    _____, _____, _____
     ),
