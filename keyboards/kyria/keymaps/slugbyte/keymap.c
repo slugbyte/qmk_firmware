@@ -117,10 +117,10 @@
 #define XA_PUT KC_PASTE         // paste
 
 // ARROW KENS
-#define XA_UUU KC_              // up
-#define XA_DDD KC_              // down
-#define XA_LLL KC_              // left
-#define XA_RRR KC_              // right
+#define XA_UUU KC_UP              // up
+#define XA_DDD KC_DOWN            // down
+#define XA_LLL KC_LEFT            // left
+#define XA_RRR KC_RIGHT           // right
 
 // MODIFIERS
 #define XM_LCT KC_LCTL         // left control
@@ -134,7 +134,7 @@
 
 // QMK
 #define XQ_NOP KC_NO           // do nothing
-#define XQ_CLR KC_TRANS        // clear (transparent, fall through)
+#define XQ_CLR KC_TRNS        // clear (transparent, fall through)
 
 enum layers {
     _WORKMAN = 0,
@@ -160,21 +160,21 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORKMAN] = LAYOUT(
-      XA_TAB, XL_Q__, XL_D__, XL_R__, XL_W__, XL_B__,                                           XL_J__, XL_F__, XL_U__, XL_P__, XS_S__, XA_BSP,
-      SB_ESC, XA_A__, XA_S__, XL_H__, XL_T__, XL_G__,                                           XL_Y__, XL_N__, XL_E__, XL_O__, XL_I__, SB_SQT,
-      SB_ENT, XL_Z__, XL_X__, XL_M__, XL_C__, XL_V__,    XM_LAL, XM_LSH,    XQ_NOP, XQ_NOP,     XL_K__, XL_L__, XS_C__, XS_D__, XS_F__, SB_ENT,
+      XA_TAB, XL_Q__, XL_D__, XL_R__, XL_W__, XL_B__,                                           XL_J__, XL_F__, XL_U__, XL_P__, XL_S__, XA_BSP,
+      SB_ESC, XL_A__, XL_S__, XL_H__, XL_T__, XL_G__,                                           XL_Y__, XL_N__, XL_E__, XL_O__, XL_I__, SB_SQT,
+      SB_ENT, XL_Z__, XL_X__, XL_M__, XL_C__, XL_V__,    XM_LAL, XM_LSH,    XQ_NOP, XQ_NOP,     XL_K__, XL_L__, XL_C__, XL_D__, XL_F__, SB_ENT,
                               XA_DEL, SB_ENT, XM_LSH,    XM_LGU, XM_LAL,    SB_NAV, SB_NUM,     SB_SYM, SB_ENT, SB_BAM
     ),
     [_NUMBER] = LAYOUT(
-      XQ_CLR, XQ_MUL, XS_ADD, XS_SUB, XS_UND, XA_NOP,                                            XQ_ADD, XN_1__, XN_2__, XN_3__, XQ_SUB, XQ_CLR,
-      XQ_CLR, XS_LAB, XS_RAB, XS_LPR, XS_RPR, XS_SPC,                                            XQ_EQL, XN_4__, XN_5__, XN_6__, XN_0__, SB_DOT,
-      XQ_CLR, XS_LSB, XS_RSB, XS_LCB, XS_RCB, XQ_NOP,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_MUL, XN_7__, XN_5__, XN_9__, XQ_DIV, XQ_CLR,
+      XQ_CLR, XS_MUL, XS_ADD, XS_SUB, XS_UND, XQ_NOP,                                            XS_ADD, XN_1__, XN_2__, XN_3__, XS_SUB, XQ_CLR,
+      XQ_CLR, XS_LAB, XS_RAB, XS_LPR, XS_RPR, XS_SPC,                                            XS_EQL, XN_4__, XN_5__, XN_6__, XN_0__, SB_DOT,
+      XQ_CLR, XS_LSB, XS_RSB, XS_LCB, XS_RCB, XQ_NOP,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XS_MUL, XN_7__, XN_5__, XN_9__, XS_DIV, XQ_CLR,
                               XQ_CLR, XQ_CLR, XQ_CLR,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR, XQ_CLR
     ),
     [_SYMBOL] = LAYOUT(
-      XS_BSL, XS_MUL, XS_ADD, XS_MIN, XS_UND, XS_ESC,                                            XS_AT_, XS_SQT, XS_DQT, XS_BQT, XS_XOR, XQ_CLR,
+      XS_BSL, XS_MUL, XS_ADD, XS_SUB, XS_UND, XA_ESC,                                            XS_AT_, XS_SQT, XS_DQT, XS_BQT, XS_XOR, XQ_CLR,
       XS_FSL, XS_LAB, XS_RAB, XS_LPR, XS_RPR, XS_EQL,                                            XS_TIL, XS_SEM, XS_AND, XS_OR_, XS_NOT, XS_MOD,
-      XQ_CLR, XS_LSB, XS_RSB, XS_LCB, XS_RCB, XS_MON,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XS_HSH, XS_COL, XS_COM, XS_DOT, XS_CLR, XQ_CLR,
+      XQ_CLR, XS_LSB, XS_RSB, XS_LCB, XS_RCB, XS_MON,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XS_HSH, XS_COL, XS_COM, XS_DOT, XS_HUH, XQ_CLR,
                               XQ_CLR, XQ_CLR, XQ_CLR,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR, XQ_CLR
     ),
     // TODO: left hand is mouse not arrows (@slugbyte)
