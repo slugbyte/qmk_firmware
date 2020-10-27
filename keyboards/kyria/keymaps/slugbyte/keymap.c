@@ -1,5 +1,4 @@
 /* Copyright 2020 Duncan Marsh <duncan@slugbyte.com>
- *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
@@ -13,207 +12,111 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/*
+ * a WORKMXN keymap by slugbyte for slugbyte
+ * 
+ * keymap goals 
+ * 0) apply the workmxn layout philosophy to every layer
+ * 2) be able to access all essential keys
+ * 3) easy to type numbers (phone keypad style)
+ * 4) (explicit rule 0) arrange symbols based on fequency of use and ease of typing!
+ * 5) logicaly group symbols (braces, math, logic, quotes, punctuation, other)
+ * 6) include a gamepad layer
+ * 7) make this file easy to read and edit
+ */
+
 #include QMK_KEYBOARD_H
-
-#define XL_A__ KC_A
-#define XL_B__ KC_B
-#define XL_C__ KC_C
-#define XL_D__ KC_D
-#define XL_E__ KC_E
-#define XL_F__ KC_F
-#define XL_G__ KC_G
-#define XL_H__ KC_H
-#define XL_I__ KC_I
-#define XL_J__ KC_J
-#define XL_K__ KC_K
-#define XL_L__ KC_L
-#define XL_M__ KC_M
-#define XL_N__ KC_N
-#define XL_O__ KC_O
-#define XL_P__ KC_P
-#define XL_Q__ KC_Q
-#define XL_R__ KC_R
-#define XL_S__ KC_S
-#define XL_T__ KC_T
-#define XL_U__ KC_U
-#define XL_V__ KC_V
-#define XL_W__ KC_W
-#define XL_X__ KC_X
-#define XL_Y__ KC_Y
-#define XL_Z__ KC_Z
-
-#define XN_1__ KC_1
-#define XN_2__ KC_2
-#define XN_3__ KC_3
-#define XN_4__ KC_4
-#define XN_5__ KC_5
-#define XN_6__ KC_6
-#define XN_7__ KC_7
-#define XN_8__ KC_8
-#define XN_9__ KC_9
-#define XN_0__ KC_0
-
-// MATH
-#define XS_SUB KC_MINS          // + plus
-#define XS_ADD KC_PLUS          // - minus
-#define XS_MUL KC_ASTR          // * multiply
-#define XS_DIV KC_SLSH          // / 
-#define XS_MOD KC_PERC          // % modulo
-#define XS_EQL KC_EQUAL         // = equal
-
-// PUNCTUATION
-#define XS_DOT KC_DOT           // . dot
-#define XS_COM KC_COMMA         // , comma
-#define XS_SEM KC_SCLN          // ; semi-colon
-#define XS_COL KC_COLN          // : colon
-#define XS_HUH KC_QUES          // ? question mark
-#define XS_SPC KC_SPACE         //   space
-
-// SYMBOL
-#define XS_MON KC_DLR           // $ money
-#define XS_HSH KC_HASH          // # hashtag
-#define XS_TIL KC_TILD          // ~ tilde
-#define XS_AT_ KC_AT            // @ at
-#define XS_UND KC_UNDS          // _ underscore
-#define XS_FSL KC_SLSH          // / forward slash
-#define XS_BSL KC_BSLS          // \ back slash
-
-// LOGIC
-#define XS_AND KC_AMPR          // & and
-#define XS_OR_ KC_PIPE          // | or 
-#define XS_NOT KC_EXLM          // ! not 
-#define XS_XOR KC_CIRC          // ^ carrot
-
-// QUOTES
-#define XS_SQT KC_QUOT          // ' single quote
-#define XS_DQT KC_DQT           // " double quote
-#define XS_BQT KC_GRV           // ` back quote
-
-// BRACKETS
-#define XS_LPR KC_LPRN          // ( open paren
-#define XS_RPR KC_RPRN          // ) close paren
-#define XS_LSB KC_LBRC          // [ open square bracket
-#define XS_RSB KC_RBRC          // ] close square bracket
-#define XS_LCB KC_LCBR          // { open curly bracket 
-#define XS_RCB KC_RCBR          // } close curly bracket
-#define XS_LAB KC_LT            // < open angle bracket (less than)
-#define XS_RAB KC_GT            // > close angle bracket (greater than)
-
-// ACTIONS
-#define XA_BSP KC_BSPC          // backspace
-#define XA_DEL KC_DEL           // delete
-#define XA_INS KC_INSERT        // insert
-#define XA_ENT KC_ENT           // enter
-#define XA_TAB KC_TAB           // tab
-#define XA_ESC KC_ESC           // escape
-#define XA_PUP KC_PGUP          // page up
-#define XA_PDN KC_PGDN          // page down
-#define XA_HOM KC_HOME          // home
-#define XA_END KC_END           // end
-
-// COPY CUT PASTE
-#define XA_CPY KC_COPY          // copy 
-#define XA_CUT KC_CUT           // cut 
-#define XA_PUT KC_PASTE         // paste
-
-// ARROW KENS
-#define XA_UUU KC_UP              // up
-#define XA_DDD KC_DOWN            // down
-#define XA_LLL KC_LEFT            // left
-#define XA_RRR KC_RIGHT           // right
-
-// MODIFIERS
-#define XM_LCT KC_LCTL         // left control
-#define XM_RCT KC_RCTL         // right control
-#define XM_LGU KC_LGUI         // left gui
-#define XM_RGU KC_RGUI         // right gui
-#define XM_LAL KC_LALT         // left alt
-#define XM_RAL KC_RALT         // right alt
-#define XM_LSH KC_LSFT         // left shift
-#define XM_RSH KC_RSFT         // right shift
-
-// QMK
-#define XQ_NOP KC_NO           // do nothing
-#define XQ_CLR KC_TRNS        // clear (transparent, fall through)
+#include "alias.h"
 
 enum layers {
-    _WORKMAN = 0,
+    _WORKMXN = 0,
     _NUMBER,
     _SYMBOL,
-    _NAVIGATION
+    _NAVIGATION,
+    _FUNCTION,
+    _GAMEPAD,
+    _GAMENUM,
 };
 
-// SLUGBYTE'S SPECAIL KEYS
-#define SB_ENT LCTL_T(XA_ENT) // control when held, enter when tapped
-#define SB_ESC LCTL_T(XA_ESC) // control when held, escape when tapped
-#define SB_SQT LCTL_T(XS_SQT) // control when held, single quote when tapped
-#define SB_DOT LCTL_T(XS_DOT) // control when held, single quote when tapped
+// ALIASES SPECIFIC TO THE SLUGBYTE KEYMAP
+// --- LAYER KEYS
+#define Y_NUM LT(_NUMBER, S_SPC)             // _NUMBER when held, space when tapped
+#define Y_SYM LT(_SYMBOL, S_SPC)             // _SYMBOL when held, space when tapped
+#define Y_NAV LT(_NAVIGATION, A_BSP)         // _NAVIGATION when held, backspace when tapped
+#define Y_FUN LT(_FUNCTION, A_DEL)           // _FUNCTION when held, del when tapped
+#define Y_BAM OSM(MOD_HYPR)                   // one-shot fn layer
 
-#define SB_NUM LT(_NUMBER, XS_SPC)             // _NUMBER when held, space when tapped
-#define SB_SYM LT(_SYMBOL, XS_SPC)            // _SYMBOL when held, space when tapped
-#define SB_NAV LT(_NAVIGATION, XA_BSP)         // _NAVIGATION when held, backspace when tapped
+// --- MOD TAP
+#define Y_ENT LCTL_T(A_ENT) // control when held, enter when tapped
+#define Y_ESC LCTL_T(A_ESC) // control when held, escape when tapped
+#define Y_SQT LCTL_T(S_SQT) // control when held, single quote when tapped
+#define Y_DOT LCTL_T(S_DOT) // control when held, single quote when tapped
 
-#define SB_BAM OSM(KC_HYPR) // one-shot hyper
-#define SB_NXT LCTL(XA_TAB) // next tab
-#define SB_PRV RCS(XA_TAB) // next tab
+// --- MOD + KEY
+#define Y_NXT LCTL(A_TAB) // next tab (browser)
+#define Y_PRV RCS(A_TAB)  // prev tab (browser)
 
+
+// -- GAMEING
+#define GG_CTL LCTL_T(S_SPC)
+#define GG_LSH LCTL_T(A_ENT)
+#define GG_CTL LCTL_T(S_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_WORKMAN] = LAYOUT(
-      XA_TAB, XL_Q__, XL_D__, XL_R__, XL_W__, XL_B__,                                           XL_J__, XL_F__, XL_U__, XL_P__, XL_S__, XA_BSP,
-      SB_ESC, XL_A__, XL_S__, XL_H__, XL_T__, XL_G__,                                           XL_Y__, XL_N__, XL_E__, XL_O__, XL_I__, SB_SQT,
-      SB_ENT, XL_Z__, XL_X__, XL_M__, XL_C__, XL_V__,    XM_LAL, XM_LSH,    XQ_NOP, XQ_NOP,     XL_K__, XL_L__, XL_C__, XL_D__, XL_F__, SB_ENT,
-                              XA_DEL, SB_ENT, XM_LSH,    XM_LGU, XM_LAL,    SB_NAV, SB_NUM,     SB_SYM, SB_ENT, SB_BAM
+    [_WORKMXN] = LAYOUT(
+      A_TAB, __Q__, __D__, __R__, __W__, __B__,                                      __J__, __F__, __U__, __P__, S_SEM, A_BSP,
+      Y_ESC, __A__, __S__, __H__, __T__, __G__,                                      __Y__, __N__, __E__, __O__, __I__, S_SQT,
+      Y_ENT, __Z__, __X__, __M__, __C__, __V__,    M_ALT, M_SFT,    A_CPY, A_PUT,    __K__, __L__, S_COM, S_DOT, S_FSL, Y_ENT,
+                           Y_FUN, Y_ENT, M_SFT,    M_SUP, M_ALT,    Y_NAV, Y_NUM,    Y_SYM, Y_ENT, Y_BAM
     ),
     [_NUMBER] = LAYOUT(
-      XQ_CLR, XS_MUL, XS_ADD, XS_SUB, XS_UND, XQ_NOP,                                            XS_ADD, XN_1__, XN_2__, XN_3__, XS_SUB, XQ_CLR,
-      XQ_CLR, XS_LAB, XS_RAB, XS_LPR, XS_RPR, XS_SPC,                                            XS_EQL, XN_4__, XN_5__, XN_6__, XN_0__, SB_DOT,
-      XQ_CLR, XS_LSB, XS_RSB, XS_LCB, XS_RCB, XQ_NOP,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XS_MUL, XN_7__, XN_5__, XN_9__, XS_DIV, XQ_CLR,
-                              XQ_CLR, XQ_CLR, XQ_CLR,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR, XQ_CLR
+      _____, S_MUL, S_ADD, S_SUB, S_UND, XXXXX,                                       S_ADD, N_1__, N_2__, N_3__, S_SUB, _____,
+      _____, S_LAB, S_RAB, S_LPR, S_RPR, S_SPC,                                       S_EQL, N_4__, N_5__, N_6__, N_0__, S_DOT,
+      _____, S_LSB, S_RSB, S_LCB, S_RCB, XXXXX,    _____, _____,     _____, _____,    S_MUL, N_7__, N_8__, N_9__, S_DIV, _____,
+                           _____, _____, _____,    _____, _____,     _____, _____,    _____, _____, _____
     ),
     [_SYMBOL] = LAYOUT(
-      XS_BSL, XS_MUL, XS_ADD, XS_SUB, XS_UND, XA_ESC,                                            XS_AT_, XS_SQT, XS_DQT, XS_BQT, XS_XOR, XQ_CLR,
-      XS_FSL, XS_LAB, XS_RAB, XS_LPR, XS_RPR, XS_EQL,                                            XS_TIL, XS_SEM, XS_AND, XS_OR_, XS_NOT, XS_MOD,
-      XQ_CLR, XS_LSB, XS_RSB, XS_LCB, XS_RCB, XS_MON,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XS_HSH, XS_COL, XS_COM, XS_DOT, XS_HUH, XQ_CLR,
-                              XQ_CLR, XQ_CLR, XQ_CLR,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR, XQ_CLR
+      S_BSL, S_MUL, S_ADD, S_SUB, S_UND, A_ESC,                                       S_AT_, S_SQT, S_DQT, S_BQT, S_XOR, _____,
+      S_FSL, S_LAB, S_RAB, S_LPR, S_RPR, S_EQL,                                       S_TIL, S_SEM, S_AND, S_OR_, S_NOT, S_MOD,
+      _____, S_LSB, S_RSB, S_LCB, S_RCB, S_MON,    _____, _____,     _____, _____,    S_HSH, S_COL, S_COM, S_DOT, S_HUH, _____,
+                           _____, _____, _____,    _____, _____,     _____, _____,    _____, _____, _____
     ),
-    // TODO: left hand is mouse not arrows (@slugbyte)
     [_NAVIGATION] = LAYOUT(
-      XQ_CLR, XQ_NOP, XQ_NOP, XA_UUU, XQ_NOP, XQ_NOP,                                            XA_END, XA_PUP, XA_PDN, XA_HOM, XQ_NOP, XQ_CLR,
-      XQ_CLR, XQ_NOP, XA_LLL, XA_DDD, XA_RRR, XQ_NOP,                                            XA_LLL, XA_DDD, XA_UUU, XA_RRR, XQ_NOP, XQ_CLR,
-      XQ_CLR, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_NOP, SB_NXT, SB_PRV, XQ_NOP, XQ_NOP, XQ_CLR,
-                              XQ_CLR, XQ_CLR, XQ_CLR,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR, XQ_CLR
+      _____, A_CPY, XXXXX, A_UUU, XXXXX, XXXXX,                                       A_END, A_PDN, A_PUP, A_HOM, A_CPY, _____,
+      _____, A_PUT, A_LLL, A_DDD, A_RRR, XXXXX,                                       A_LLL, A_DDD, A_UUU, A_RRR, A_PUT, _____,
+      _____, A_CUT, XXXXX, Y_PRV, Y_NXT, XXXXX,    _____, _____,     A_RED, A_UND,    XXXXX, Y_PRV, Y_NXT, XXXXX, A_CUT, _____,
+                           _____, _____, _____,    _____, _____,     _____, _____,    _____, _____, _____
     ),
-//    [_LAYERINDEX] = LAYOUT(
-//      XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,                                            XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,
-//      XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,                                            XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,
-//      XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,    XQ_NOP, XQ_NOP,     XQ_NOP, XQ_NOP,     XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,
-//                              XQ_NOP, XQ_NOP, XQ_NOP,    XQ_NOP, XQ_NOP,     XQ_NOP, XQ_NOP,     XQ_NOP, XQ_NOP, XQ_NOP
-//    ),
+    [_FUNCTION] = LAYOUT(
+      _____, F_01_, F_02_, F_03_, F_04_, XXXXX,                                       XXXXX, F_01_, F_02_, F_03_, F_04_, _____,
+      _____, F_05_, F_06_, F_07_, F_08_, XXXXX,                                       XXXXX, F_05_, F_06_, F_07_, F_08_, _____,
+      _____, F_09_, F_10_, F_11_, F_12_, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, F_09_, F_10_, F_11_, F_12_, _____,
+                           XXXXX, XXXXX, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX
+    ),
+    [_GAMEPAD] = LAYOUT(
+      XXXXX, XXXXX, __Q__, __W__, __E__, __R__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+      XXXXX, XXXXX, __A__, __S__, __D__, __F__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+      XXXXX, XXXXX, __Z__, __X__, __C__, __V__,     XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+                            XXXXX, XXXXX, XXXXX,    M_CTL, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX
+    ),
+    [_GAMENUM] = LAYOUT(
+      XXXXX, XXXXX, N_1__, N_2__, N_3__, XXXXX,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+      XXXXX, N_0__, N_4__, N_5__, N_6__, XXXXX,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+      XXXXX, XXXXX, N_7__, N_8__, N_9__, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,     XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+                           XXXXX, XXXXX, XXXXX,    M_CTL, XXXXX,     XXXXX, XXXXX,     XXXXX, XXXXX, XXXXX
+    ),
+    [_GAMENUM] = LAYOUT(
+      XXXXX, XXXXX, N_1__, N_2__, N_3__, XXXXX,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+      XXXXX, N_0__, N_4__, N_5__, N_6__, XXXXX,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+      XXXXX, XXXXX, N_7__, N_8__, N_9__, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,     XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+                           XXXXX, XXXXX, XXXXX,    M_CTL, XXXXX,     XXXXX, XXXXX,     XXXXX, XXXXX, XXXXX
+    ),
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _NUMBER, _SYMBOL, _NAVIGATION);
-}
-
-
-/*#ifdef ENCODER_ENABLE*/
-/*void encoder_update_user(uint8_t index, bool clockwise) {*/
-    /*if (index == 0) {*/
-        /*// Volume control*/
-        /*if (clockwise) {*/
-            /*tap_code(KC_VOLU);*/
-        /*} else {*/
-            /*tap_code(KC_VOLD);*/
-        /*}*/
-    /*}*/
-    /*else if (index == 1) {*/
-        /*// Page up/Page down*/
-        /*if (clockwise) {*/
-            /*tap_code(KC_PGDN);*/
-        /*} else {*/
-            /*tap_code(KC_PGUP);*/
-        /*}*/
-    /*}*/
-/*}*/
-/*#endif*/
+//    [_LAYERINDEX] = LAYOUT(
+//      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                                       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+//      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                                       XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+//      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+//                           XXXXX, XXXXX, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX
+//    ),
