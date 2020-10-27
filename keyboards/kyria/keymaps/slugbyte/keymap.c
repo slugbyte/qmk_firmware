@@ -143,23 +143,27 @@ enum layers {
     _NAVIGATION
 };
 
-
 // SLUGBYTE'S SPECAIL KEYS
-#define SB_ENT CTL_T(XA_ENT) // control when held, enter when tapped
-#define SB_ESC CTL_T(XA_ESC) // control when held, escape when tapped
-#define SB_SQT CTL_T(XS_SQT) // control when held, single quote when tapped
-#define SB_DOT CTL_T(XS_DOT) // control when held, single quote when tapped
+#define SB_ENT LCTL_T(XA_ENT) // control when held, enter when tapped
+#define SB_ESC LCTL_T(XA_ESC) // control when held, escape when tapped
+#define SB_SQT LCTL_T(XS_SQT) // control when held, single quote when tapped
+#define SB_DOT LCTL_T(XS_DOT) // control when held, single quote when tapped
 
 #define SB_NUM LT(_NUMBER, XS_SPC)             // _NUMBER when held, space when tapped
 #define SB_SYM LT(_SYMBOL, XS_SPC)            // _SYMBOL when held, space when tapped
 #define SB_NAV LT(_NAVIGATION, XA_BSP)         // _NAVIGATION when held, backspace when tapped
+
+#define SB_BAM OSM(KC_HYPR) // one-shot hyper
+#define SB_NXT LCTL(XA_TAB) // next tab
+#define SB_PRV RCS(XA_TAB) // next tab
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORKMAN] = LAYOUT(
       XA_TAB, XL_Q__, XL_D__, XL_R__, XL_W__, XL_B__,                                           XL_J__, XL_F__, XL_U__, XL_P__, XS_S__, XA_BSP,
       SB_ESC, XA_A__, XA_S__, XL_H__, XL_T__, XL_G__,                                           XL_Y__, XL_N__, XL_E__, XL_O__, XL_I__, SB_SQT,
       SB_ENT, XL_Z__, XL_X__, XL_M__, XL_C__, XL_V__,    XM_LAL, XM_LSH,    XQ_NOP, XQ_NOP,     XL_K__, XL_L__, XS_C__, XS_D__, XS_F__, SB_ENT,
-                              XA_DEL, SB_C_E, XM_LSH,    XM_LGU, XM_LAL,    SB_NAV, SB_NUM,     SB_SYM, SB_C_E, XQ_NOP
+                              XA_DEL, SB_ENT, XM_LSH,    XM_LGU, XM_LAL,    SB_NAV, SB_NUM,     SB_SYM, SB_ENT, SB_BAM
     ),
     [_NUMBER] = LAYOUT(
       XQ_CLR, XQ_MUL, XS_ADD, XS_SUB, XS_UND, XA_NOP,                                            XQ_ADD, XN_1__, XN_2__, XN_3__, XQ_SUB, XQ_CLR,
@@ -167,23 +171,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XQ_CLR, XS_LSB, XS_RSB, XS_LCB, XS_RCB, XQ_NOP,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_MUL, XN_7__, XN_5__, XN_9__, XQ_DIV, XQ_CLR,
                               XQ_CLR, XQ_CLR, XQ_CLR,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR, XQ_CLR
     ),
-    [_NUMBER] = LAYOUT(
-      KC_TRANS, KC_NO,   KC_NO,    KC_UNDS, KC_MINS, KC_NO,                                         KC_PLUS, KC_1, KC_2, KC_3, KC_MINS, KC_TRANS,
-      KC_TRANS, KC_LT,   KC_GT,    KC_LPRN, KC_RPRN, KC_SPC,                                        KC_EQL,  KC_4, KC_5, KC_6, KC_0,    KC_TRANS,
-      KC_TRANS, KC_LBRC, KC_RBRC,  KC_LCBR, KC_RCBR, KC_NO, KC_TRANS, KC_TRANS,     KC_TRANS, KC_TRANS, KC_ASTR, KC_7, KC_8, KC_9, KC_SLSH, KC_TRANS,
-      KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS,                             KC_TRANS,  KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS
+    [_SYMBOL] = LAYOUT(
+      XS_BSL, XS_MUL, XS_ADD, XS_MIN, XS_UND, XS_ESC,                                            XS_AT_, XS_SQT, XS_DQT, XS_BQT, XS_XOR, XQ_CLR,
+      XS_FSL, XS_LAB, XS_RAB, XS_LPR, XS_RPR, XS_EQL,                                            XS_TIL, XS_SEM, XS_AND, XS_OR_, XS_NOT, XS_MOD,
+      XQ_CLR, XS_LSB, XS_RSB, XS_LCB, XS_RCB, XS_MON,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XS_HSH, XS_COL, XS_COM, XS_DOT, XS_CLR, XQ_CLR,
+                              XQ_CLR, XQ_CLR, XQ_CLR,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR, XQ_CLR
     ),
-    [_SPECAIL] = LAYOUT(
-      KC_TRANS, KC_ASTR, KC_PLUS, KC_UNDS, KC_MINS, KC_ESC,                                                   KC_, KC_, KC_, KC_, KC_, KC_TRANS,
-      KC_TRANS, KC_LT,   KC_GT,   KC_LPRN, KC_RPRN, KC_EQL,                                                   KC_, KC_, KC_, KC_, KC_, KC_TRANS,
-      KC_TRANS, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, KC_DLR, KC_TRANS, KC_TRANS,           KC_TRANS, KC_TRANS, KC_, KC_, KC_, KC_, KC_, KC_TRANS,
-      KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS,      KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS
-    ),
+    // TODO: left hand is mouse not arrows (@slugbyte)
     [_NAVIGATION] = LAYOUT(
-      KC_TRANS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_TRANS,
-      KC_TRANS, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     KC_TRANS, KC_TRANS, KC_TRANS, KC_F11,  KC_F12,  KC_TRANS,
-      KC_TRANS, KC_TRANS, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS,
-                                 KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS, KC_TRANS
+      XQ_CLR, XQ_NOP, XQ_NOP, XA_UUU, XQ_NOP, XQ_NOP,                                            XA_END, XA_PUP, XA_PDN, XA_HOM, XQ_NOP, XQ_CLR,
+      XQ_CLR, XQ_NOP, XA_LLL, XA_DDD, XA_RRR, XQ_NOP,                                            XA_LLL, XA_DDD, XA_UUU, XA_RRR, XQ_NOP, XQ_CLR,
+      XQ_CLR, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_NOP, SB_NXT, SB_PRV, XQ_NOP, XQ_NOP, XQ_CLR,
+                              XQ_CLR, XQ_CLR, XQ_CLR,    XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR,     XQ_CLR, XQ_CLR, XQ_CLR
     ),
 //    [_LAYERINDEX] = LAYOUT(
 //      XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,                                            XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP, XQ_NOP,
@@ -194,27 +193,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _NUM, _SPECAIL, _NAV);
+    return update_tri_layer_state(state, _NUMBER, _SYMBOL, _NAVIGATION);
 }
 
 
-#ifdef ENCODER_ENABLE
-void encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        // Volume control
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    }
-    else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
-    }
-}
-#endif
+/*#ifdef ENCODER_ENABLE*/
+/*void encoder_update_user(uint8_t index, bool clockwise) {*/
+    /*if (index == 0) {*/
+        /*// Volume control*/
+        /*if (clockwise) {*/
+            /*tap_code(KC_VOLU);*/
+        /*} else {*/
+            /*tap_code(KC_VOLD);*/
+        /*}*/
+    /*}*/
+    /*else if (index == 1) {*/
+        /*// Page up/Page down*/
+        /*if (clockwise) {*/
+            /*tap_code(KC_PGDN);*/
+        /*} else {*/
+            /*tap_code(KC_PGUP);*/
+        /*}*/
+    /*}*/
+/*}*/
+/*#endif*/
