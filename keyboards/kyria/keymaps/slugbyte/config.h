@@ -17,3 +17,4 @@
 #pragma once
 
 #define ONESHOT_TIMEOUT 5000
+#define TAPPING_TERM 200
