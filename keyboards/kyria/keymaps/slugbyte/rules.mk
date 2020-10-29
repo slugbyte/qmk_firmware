@@ -1,5 +1,22 @@
-BOOTLOADER = caterina     # Enable the promicro bootloader
-TAP_DANCE_ENABLE = yes    # Enable tap dance
-OLED_DRIVER_ENABLE = no   # Enables the use of OLED displays
-ENCODER_ENABLE = no       # Enables the use of one or more encoders
-RGBLIGHT_ENABLE = no      # Enable keyboard RGB underglow
+# ENABLE
+BOOTLOADER = caterina     # promicro bootloader
+TAP_DANCE_ENABLE = yes
+
+# DISABLE
+NKRO_ENABLE = no
+MIDI_ENABLE = no
+AUDIO_ENABLE = no
+ENCODER_ENABLE = no
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+HD44780_ENABLE = no
+UNICODE_ENABLE = no
+MOUSEKEY_ENABLE = no      
+RGBLIGHT_ENABLE = no
+BACKLIGHT_ENABLE = no
+BLUETOOTH_ENABLE = no
+BOOTMAGIC_ENABLE = no      
+EXTRAKEY_ENABLE = yes    
+FAUXCLICKY_ENABLE = no
+OLED_DRIVER_ENABLE = no 
+RGBLIGHT_STARTUP_ANIMATION = no

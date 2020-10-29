@@ -16,5 +16,6 @@
 
 #pragma once
 
+#define TAPPING_TERM 150
+#define TAPPING_TOGGLE 3
 #define ONESHOT_TIMEOUT 5000
-#define TAPPING_TERM 200

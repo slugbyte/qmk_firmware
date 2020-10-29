@@ -93,7 +93,7 @@ void insert_gamepad_reset(qk_tap_dance_state_t *state, void *user_data) {
     unregister_code(A_INS);
     return;
   } 
-  if (state->count == 5) {
+  if (state->count == 3) {
     layer_on(_GAMEPAD);
     return;
   }
@@ -108,32 +108,27 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // ALIASES SPECIFIC TO THE SLUGBYTE KEYMAP
 // --- LAYER KEYS
-#define Y_NUM LT(_NUMBER, S_SPC)             // _NUMBER when held, space when tapped
-#define Y_SYM LT(_SYMBOL, S_SPC)             // _SYMBOL when held, space when tapped
-#define Y_NAV LT(_NAVIGATION, A_BSP)         // _NAVIGATION when held, backspace when tapped
-#define Y_FUN LT(_FUNCTION, A_DEL)           // _FUNCTION when held, del when tapped
-#define Y_GAM TD(INSERT_GAMEPAD)
-#define Y_WRK TO(_WORKMXN)
+#define Y_NUM LT(_NUMBER, S_SPC)   // _NUMBER when held, space when tapped
+#define Y_SYM LT(_SYMBOL, S_SPC)   // _SYMBOL when held, space when tapped
+#define Y_FUN LT(_FUNCTION, A_DEL) // _FUNCTION when held, del when tapped
+#define Y_NAV TT(_NAVIGATION)      // _NAVIGATION when held, backspace when tapped
+#define Y_WRK TO(_WORKMXN)         // switch to _WORKMXN
+#define Y_GAM TD(INSERT_GAMEPAD)   // tap once for insert three times for _GAMEPAD
+#define G_NUM MO(_GAMENUM)         // _GAMENUM when held 
 
 // --- MOD TAP
 #define Y_ENT LCTL_T(A_ENT) // control when held, enter when tapped
 #define Y_ESC LCTL_T(A_ESC) // control when held, escape when tapped
-#define Y_SQT LCTL_T(S_SQT) // control when held, single quote when tapped
-#define Y_DOT LCTL_T(S_DOT) // control when held, single quote when tapped
+#define Y_SPC LSFT_T(S_SPC) // (_NAVIGATION only) shift when held space when tapped
+#define Y_BSP LGUI_T(A_BSP) // (_NAVIGATION only) super when held backspace when tapped
 
 // --- MOD + KEY
-#define Y_NXT LCTL(A_TAB) // next tab (browser)
-#define Y_PRV RCS(A_TAB)  // prev tab (browser)
-
-
-// -- GAMEING
-#define G_CTL LCTL_T(S_SPC)
-#define G_SFT LCTL_T(A_ENT)
-#define G_NUM MO(_GAMENUM)
+#define Y_NXT LCTL(A_TAB) // next browser tab 
+#define Y_PRV RCS(A_TAB)  // prev browser tab
 
 // -- TAP DANCE
-#define Y_LPR TD(OPEN_PAREN_ARROW)
-#define Y_RPR TD(CLOSE_PAREN_ARROW)
+#define Y_LPR TD(OPEN_PAREN_ARROW)  // one tap ( -- two tap ->
+#define Y_RPR TD(CLOSE_PAREN_ARROW) // one tap )  -- two tap =>
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORKMXN] = LAYOUT(
@@ -150,15 +145,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SYMBOL] = LAYOUT(
       S_BSL, S_MUL, S_ADD, S_SUB, S_UND, A_ESC,                                       S_AT_, S_SQT, S_DQT, S_BQT, S_XOR, _____,
-      S_FSL, S_LAB, S_RAB, Y_LPR, Y_RPR, S_EQL,                                       S_TIL, S_SEM, S_AND, S_OR_, S_NOT, S_MOD,
-      _____, S_LSB, S_RSB, S_LCB, S_RCB, S_MON,    _____, _____,     _____, _____,    S_HSH, S_COL, S_COM, S_DOT, S_HUH, _____,
+      S_FSL, S_LAB, S_RAB, Y_LPR, Y_RPR, S_EQL,                                       S_TIL, S_SEM, S_AND, S_OR_, S_NOT, S_MON,
+      _____, S_LSB, S_RSB, S_LCB, S_RCB, S_MOD,    _____, _____,     _____, _____,    S_HSH, S_COL, S_COM, S_DOT, S_HUH, _____,
                            _____, _____, _____,    _____, _____,     _____, _____,    _____, _____, _____
     ),
     [_NAVIGATION] = LAYOUT(
-      _____, A_CPY, XXXXX, A_UUU, XXXXX, XXXXX,                                       A_END, A_PDN, A_PUP, A_HOM, A_CPY, _____,
-      _____, A_PUT, A_LLL, A_DDD, A_RRR, XXXXX,                                       A_LLL, A_DDD, A_UUU, A_RRR, A_PUT, _____,
+      _____, A_CPY, A_END, A_UUU, A_HOM, A_PUP,                                       A_END, A_PDN, A_PUP, A_HOM, A_CPY, _____,
+      _____, A_PUT, A_LLL, A_DDD, A_RRR, A_PDN,                                       A_LLL, A_DDD, A_UUU, A_RRR, A_PUT, _____,
       _____, A_CUT, XXXXX, Y_PRV, Y_NXT, XXXXX,    _____, _____,     A_RED, A_UND,    XXXXX, Y_PRV, Y_NXT, XXXXX, A_CUT, _____,
-                           _____, _____, _____,    _____, _____,     _____, _____,    _____, _____, _____
+                           _____, _____, Y_SPC,    Y_BSP, _____,     _____, _____,    _____, _____, Y_WRK
     ),
     [_FUNCTION] = LAYOUT(
       _____, F_01_, F_02_, F_03_, F_04_, XXXXX,                                       XXXXX, F_01_, F_02_, F_03_, F_04_, _____,
@@ -168,9 +163,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_GAMEPAD] = LAYOUT(
       A_TAB, A_ESC, __Q__, __W__, __E__, __R__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
-      G_SFT, G_CTL, __A__, __S__, __D__, __F__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
-      G_CTL, G_CTL, __Z__, __X__, __C__, __V__,     XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
-                            Y_FUN, M_SUP, G_SFT,    G_CTL, G_NUM,     XXXXX, XXXXX,    XXXXX, XXXXX, Y_WRK
+      M_SFT, S_SPC, __A__, __S__, __D__, __F__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+      M_CTL, M_CTL, __Z__, __X__, __C__, __V__,     XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+                            Y_FUN, M_SUP, M_SFT,    M_CTL, G_NUM,     XXXXX, XXXXX,    XXXXX, XXXXX, Y_WRK
     ),
     [_GAMENUM] = LAYOUT(
       _____, _____, N_1__, N_2__, N_3__, XXXXX,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
