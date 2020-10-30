@@ -23,4 +23,4 @@ function keys, actions, and modifiers. The qmk keycodes `KC_NO` and `KC_TRANSPAR
 * `A_` Actions keys, non ascii keys that heave behavior -- `A_PUP` is page up, `A_BSP` is backspace
 * `M_` Modifier keys -- `M_SUP` is super, `M_SFT` is shift
 
-![Image of Slugbyte's workmxn laygout](https://i.imgur.com/712EHg7.png)
+![Image of Slugbyte's workmxn laygout](https://i.imgur.com/87QHxFK.png)

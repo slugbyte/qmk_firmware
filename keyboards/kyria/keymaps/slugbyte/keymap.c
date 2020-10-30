@@ -34,9 +34,9 @@ enum layers {
     _NUMBER,
     _SYMBOL,
     _NAVIGATION,
-    _FUNCTION,
     _GAMEPAD,
     _GAMENUM,
+    _FUNCTION,
 };
 
 
@@ -108,17 +108,17 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // ALIASES SPECIFIC TO THE SLUGBYTE KEYMAP
 // --- LAYER KEYS
-#define Y_NUM LT(_NUMBER, S_SPC)   // _NUMBER when held, space when tapped
-#define Y_SYM LT(_SYMBOL, S_SPC)   // _SYMBOL when held, space when tapped
-#define Y_FUN LT(_FUNCTION, A_DEL) // _FUNCTION when held, del when tapped
-#define Y_NAV TT(_NAVIGATION)      // _NAVIGATION when held, backspace when tapped
-#define Y_WRK TO(_WORKMXN)         // switch to _WORKMXN
-#define Y_GAM TD(INSERT_GAMEPAD)   // tap once for insert three times for _GAMEPAD
-#define G_NUM MO(_GAMENUM)         // _GAMENUM when held 
+#define Y_NUM LT(_NUMBER, S_SPC)     // _NUMBER when held, space when tapped
+#define Y_SYM LT(_SYMBOL, S_SPC)     // _SYMBOL when held, space when tapped
+#define Y_ESC LT(_NAVIGATION, A_ESC) // _NAVIGATION when held, escape when tapped
+#define Y_FUN LT(_FUNCTION, A_DEL)   // _FUNCTION when held, del when tapped
+#define Y_NAV TT(_NAVIGATION)        // _NAVIGATION when held, backspace when tapped
+#define Y_WRK TO(_WORKMXN)           // switch to _WORKMXN
+#define Y_GAM TD(INSERT_GAMEPAD)     // tap once for insert three times for _GAMEPAD
+#define G_NUM MO(_GAMENUM)           // _GAMENUM when held 
 
 // --- MOD TAP
 #define Y_ENT LCTL_T(S_ENT) // control when held, enter when tapped
-#define Y_ESC LCTL_T(A_ESC) // control when held, escape when tapped
 #define Y_SPC LSFT_T(S_SPC) // (_NAVIGATION only) shift when held space when tapped
 #define Y_BSP LGUI_T(A_BSP) // (_NAVIGATION only) super when held backspace when tapped
 
@@ -156,23 +156,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _____, A_CUT, XXXXX, Y_PRV, Y_NXT, Y_CLO,    _____, _____,     A_RED, A_UND,    Y_CLO, Y_PRV, Y_NXT, XXXXX, A_CUT, _____,
                            _____, _____, Y_SPC,    Y_BSP, _____,     _____, _____,    _____, _____, Y_WRK
     ),
+    [_GAMEPAD] = LAYOUT(
+      S_TAB, A_ESC, __Q__, __W__, __E__, __R__,                                        XXXXX, F_01_, F_02_, F_03_, F_04_, XXXXX,
+      M_SFT, S_SPC, __A__, __S__, __D__, __F__,                                        XXXXX, F_05_, F_06_, F_07_, F_08_, XXXXX,
+      M_CTL, M_CTL, __Z__, __X__, __C__, __V__,     XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, F_09_, F_10_, F_11_, F_12_, XXXXX,
+                            Y_FUN, M_SUP, M_SFT,    M_CTL, G_NUM,     XXXXX, XXXXX,    XXXXX, XXXXX, Y_WRK
+    ),
+    [_GAMENUM] = LAYOUT(
+      _____, _____, N_1__, N_2__, N_3__, XXXXX,                                        XXXXX, _____, _____, _____, _____, XXXXX,
+      _____, N_0__, N_4__, N_5__, N_6__, S_SPC,                                        XXXXX, _____, _____, _____, _____, XXXXX,
+      _____, S_DOT, N_7__, N_8__, N_9__, A_BSP,    XXXXX, XXXXX,     XXXXX, XXXXX,     XXXXX, _____, _____, _____, _____, XXXXX,
+                           XXXXX, _____, _____,    _____, _____,     XXXXX, XXXXX,     XXXXX, XXXXX, XXXXX 
+    ),
     [_FUNCTION] = LAYOUT(
       _____, F_01_, F_02_, F_03_, F_04_, XXXXX,                                       XXXXX, F_01_, F_02_, F_03_, F_04_, _____,
       _____, F_05_, F_06_, F_07_, F_08_, XXXXX,                                       XXXXX, F_05_, F_06_, F_07_, F_08_, _____,
       _____, F_09_, F_10_, F_11_, F_12_, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, F_09_, F_10_, F_11_, F_12_, _____,
                            XXXXX, XXXXX, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX
-    ),
-    [_GAMEPAD] = LAYOUT(
-      S_TAB, A_ESC, __Q__, __W__, __E__, __R__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
-      M_SFT, S_SPC, __A__, __S__, __D__, __F__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
-      M_CTL, M_CTL, __Z__, __X__, __C__, __V__,     XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
-                            Y_FUN, M_SUP, M_SFT,    M_CTL, G_NUM,     XXXXX, XXXXX,    XXXXX, XXXXX, Y_WRK
-    ),
-    [_GAMENUM] = LAYOUT(
-      _____, _____, N_1__, N_2__, N_3__, XXXXX,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
-      _____, N_0__, N_4__, N_5__, N_6__, A_BSP,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
-      _____, S_DOT, N_7__, N_8__, N_9__, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,     XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
-                           XXXXX, _____, _____,    _____, _____,     XXXXX, XXXXX,     XXXXX, XXXXX, XXXXX 
     ),
 };
 
