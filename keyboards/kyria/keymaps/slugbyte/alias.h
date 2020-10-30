@@ -97,7 +97,11 @@
 #define S_SEM KC_SCLN          // ; semi-colon
 #define S_COL KC_COLN          // : colon
 #define S_HUH KC_QUES          // ? question mark
+
+// -- WHITESPACE
 #define S_SPC KC_SPACE         //   space
+#define S_TAB KC_TAB           // tab
+#define S_ENT KC_ENT           // enter (new line)
 
 // -- MATH
 #define S_SUB KC_MINS          // + plus
@@ -142,13 +146,12 @@
 #define A_BSP KC_BSPC          // backspace
 #define A_DEL KC_DEL           // delete
 #define A_INS KC_INSERT        // insert
-#define A_ENT KC_ENT           // enter
-#define A_TAB KC_TAB           // tab
 #define A_ESC KC_ESC           // escape
 #define A_PUP KC_PGUP          // page up
 #define A_PDN KC_PGDN          // page down
 #define A_HOM KC_HOME          // home
 #define A_END KC_END           // end
+
 
 // -- ARROW KENS
 #define A_UUU KC_UP              // up

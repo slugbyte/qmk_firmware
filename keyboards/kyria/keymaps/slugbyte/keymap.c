@@ -117,14 +117,15 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define G_NUM MO(_GAMENUM)         // _GAMENUM when held 
 
 // --- MOD TAP
-#define Y_ENT LCTL_T(A_ENT) // control when held, enter when tapped
+#define Y_ENT LCTL_T(S_ENT) // control when held, enter when tapped
 #define Y_ESC LCTL_T(A_ESC) // control when held, escape when tapped
 #define Y_SPC LSFT_T(S_SPC) // (_NAVIGATION only) shift when held space when tapped
 #define Y_BSP LGUI_T(A_BSP) // (_NAVIGATION only) super when held backspace when tapped
 
 // --- MOD + KEY
-#define Y_NXT LCTL(A_TAB) // next browser tab 
-#define Y_PRV RCS(A_TAB)  // prev browser tab
+#define Y_NXT LCTL(S_TAB) // next browser tab 
+#define Y_PRV RCS(S_TAB)  // prev browser tab
+#define Y_CLO LCTL(__W__) // close browser tab
 
 // -- TAP DANCE
 #define Y_LPR TD(OPEN_PAREN_ARROW)  // one tap ( -- two tap ->
@@ -132,7 +133,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WORKMXN] = LAYOUT(
-      A_TAB, __Q__, __D__, __R__, __W__, __B__,                                      __J__, __F__, __U__, __P__, S_SEM, A_BSP,
+      S_TAB, __Q__, __D__, __R__, __W__, __B__,                                      __J__, __F__, __U__, __P__, S_SEM, A_BSP,
       Y_ESC, __A__, __S__, __H__, __T__, __G__,                                      __Y__, __N__, __E__, __O__, __I__, S_SQT,
       Y_ENT, __Z__, __X__, __M__, __C__, __V__,    M_ALT, M_SFT,    A_CPY, A_PUT,    __K__, __L__, S_COM, S_DOT, S_FSL, Y_ENT,
                            Y_FUN, Y_ENT, M_SFT,    M_SUP, M_ALT,    Y_NAV, Y_NUM,    Y_SYM, Y_ENT, Y_GAM
@@ -152,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAVIGATION] = LAYOUT(
       _____, A_CPY, A_END, A_UUU, A_HOM, A_PUP,                                       A_END, A_PDN, A_PUP, A_HOM, A_CPY, _____,
       _____, A_PUT, A_LLL, A_DDD, A_RRR, A_PDN,                                       A_LLL, A_DDD, A_UUU, A_RRR, A_PUT, _____,
-      _____, A_CUT, XXXXX, Y_PRV, Y_NXT, XXXXX,    _____, _____,     A_RED, A_UND,    XXXXX, Y_PRV, Y_NXT, XXXXX, A_CUT, _____,
+      _____, A_CUT, XXXXX, Y_PRV, Y_NXT, Y_CLO,    _____, _____,     A_RED, A_UND,    Y_CLO, Y_PRV, Y_NXT, XXXXX, A_CUT, _____,
                            _____, _____, Y_SPC,    Y_BSP, _____,     _____, _____,    _____, _____, Y_WRK
     ),
     [_FUNCTION] = LAYOUT(
@@ -162,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            XXXXX, XXXXX, XXXXX,    XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX
     ),
     [_GAMEPAD] = LAYOUT(
-      A_TAB, A_ESC, __Q__, __W__, __E__, __R__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
+      S_TAB, A_ESC, __Q__, __W__, __E__, __R__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
       M_SFT, S_SPC, __A__, __S__, __D__, __F__,                                        XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
       M_CTL, M_CTL, __Z__, __X__, __C__, __V__,     XXXXX, XXXXX,     XXXXX, XXXXX,    XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,
                             Y_FUN, M_SUP, M_SFT,    M_CTL, G_NUM,     XXXXX, XXXXX,    XXXXX, XXXXX, Y_WRK
